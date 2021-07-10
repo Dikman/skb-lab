@@ -1,0 +1,11 @@
+<mat-card class="full-width">
+  <mat-card-title i18n="@@title.tasks-list">Tasks list</mat-card-title>
+
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let item of list$ | async; trackBy: trackTask" [value]="item">
+      {{item.title}}
+      <span class="flex-spacer"></span>
+      {{item.deadline | date:dateFormat}}
+    </mat-list-option>
+  </mat-selection-list>
+</mat-card>

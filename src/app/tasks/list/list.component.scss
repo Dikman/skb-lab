@@ -1,0 +1,10 @@
+:host {
+  box-sizing: border-box;
+  padding: 16px;
+  height: 100%;
+  display: flex;
+
+  ::ng-deep .mat-list-text {
+    flex-direction: row !important;
+  }
+}
