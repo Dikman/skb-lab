@@ -1,0 +1,49 @@
+<form [formGroup]="form" (submit)="submit()">
+  <h3 mat-dialog-title i18n="@@title.task-view">Task</h3>
+
+  <mat-form-field appearance="outline">
+    <mat-label i18n="@@field.task.title">Title</mat-label>
+    <input matInput formControlName="title" required>
+
+    <mat-hint align="end">
+      {{form.get('title')?.value.length}} / {{maxTitleLength}}
+    </mat-hint>
+
+    <mat-error align="start">
+      <ng-container [ngTemplateOutlet]="checker" [ngTemplateOutletContext]="{errors:form.get('title')?.errors}">
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label i18n="@@field.task.description">Description</mat-label>
+    <textarea matInput formControlName="description" rows="5" required></textarea>
+
+    <mat-hint align="end">
+      {{form.get('description')?.value.length}} / {{maxDescriptionLength}}
+    </mat-hint>
+
+    <mat-error align="start">
+      <ng-container [ngTemplateOutlet]="checker" [ngTemplateOutletContext]="{errors:form.get('description')?.errors}">
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label i18n="@@field.task.deadline">Deadline</mat-label>
+    <input matInput formControlName="deadline" [min]="minAvailableDate" [matDatepicker]="picker" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+
+    <mat-error align="start">
+      <ng-container [ngTemplateOutlet]="checker" [ngTemplateOutletContext]="{errors:form.get('deadline')?.errors}">
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<ng-template #checker let-errors="errors">
+  <span *ngIf="errors?.required" i18="@@errors.required">A value is required</span>
+  <span *ngIf="errors?.maxlength" i18="@@errors.maxlength">A value too long</span>
+  <span *ngIf="errors?.future" i18="@@errors.future">A future or current date must be selected</span>
+</ng-template>

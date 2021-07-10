@@ -43,10 +43,19 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+mat-form-field {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
 .flex-spacer {
   flex: 1 1 auto;
 }
 
 .full-width {
   width: 100%;
+}
+
+.lock-selection {
+  user-select: none;
 }

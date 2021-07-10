@@ -1,11 +1,20 @@
 <mat-card class="full-width">
   <mat-card-title i18n="@@title.tasks-list">Tasks list</mat-card-title>
 
-  <mat-selection-list [multiple]="false">
-    <mat-list-option *ngFor="let item of list$ | async; trackBy: trackTask" [value]="item">
+  <mat-selection-list *ngIf="list$ | async as list" [multiple]="false">
+    <mat-list-option *ngFor="let item of list; trackBy: trackTask" class="lock-selection" [value]="item">
       {{item.title}}
       <span class="flex-spacer"></span>
-      {{item.deadline | date:dateFormat}}
+      {{item.deadline | date}}
+    </mat-list-option>
+
+    <mat-list-option *ngIf="!list.length" class="lock-selection" i18n="@@content.tasks-list.empty" (click)="addNewTask()">
+      Any tasks are absent. Click here or click add button to add the first task.
     </mat-list-option>
   </mat-selection-list>
 </mat-card>
+
+<button class="add-task-button" mat-mini-fab color="accent" aria-label="Add a new task"
+  i18n-aria-label="@@label.new-task" (click)="addNewTask()">
+  <mat-icon>add</mat-icon>
+</button>

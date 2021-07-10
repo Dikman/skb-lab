@@ -11,6 +11,7 @@ export interface TaskData {
   title: string;
   description: string;
   deadline: Date;
+  closed: boolean;
 }
 
 @Injectable({

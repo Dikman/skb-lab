@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 import { TaskData, TasksService } from '../services/tasks.service';
 
 @Component({
@@ -13,10 +15,23 @@ export class ListComponent {
 
   constructor(
     private tasksService: TasksService,
+    public dialog: MatDialog,
   ) { }
 
   public trackTask(idx: number, item: TaskData): number {
     return item.id;
+  }
+
+  public addNewTask(): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      role: 'dialog',
+      width: '640px',
+      // data?: D | null;
+    });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log(`Dialog result: ${result}`);
+    // });
   }
 
 }
