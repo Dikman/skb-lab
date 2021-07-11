@@ -1,45 +1,62 @@
-<form [formGroup]="form" (submit)="submit()">
-  <h3 mat-dialog-title i18n="@@title.task-view">Task</h3>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h3 *ngIf="editing; else addTaskTitle" mat-dialog-title i18n="@@title.task-view.edit-task">Edit the task</h3>
 
-  <mat-form-field appearance="outline">
-    <mat-label i18n="@@field.task.title">Title</mat-label>
-    <input matInput formControlName="title" required>
+  <ng-template #addTaskTitle>
+    <h3 mat-dialog-title i18n="@@title.task-view.add-task">Add a new task</h3>
+  </ng-template>
 
-    <mat-hint align="end">
-      {{form.get('title')?.value.length}} / {{maxTitleLength}}
-    </mat-hint>
+  <mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label i18n="@@field.task.title">Title</mat-label>
+      <input matInput formControlName="title" required>
 
-    <mat-error align="start">
-      <ng-container [ngTemplateOutlet]="checker" [ngTemplateOutletContext]="{errors:form.get('title')?.errors}">
-      </ng-container>
-    </mat-error>
-  </mat-form-field>
+      <mat-hint align="end">
+        {{form.get('title')?.value.length}} / {{maxTitleLength}}
+      </mat-hint>
 
-  <mat-form-field appearance="outline">
-    <mat-label i18n="@@field.task.description">Description</mat-label>
-    <textarea matInput formControlName="description" rows="5" required></textarea>
+      <mat-error align="start">
+        <ng-container [ngTemplateOutlet]="checker" [ngTemplateOutletContext]="{errors:form.get('title')?.errors}">
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
 
-    <mat-hint align="end">
-      {{form.get('description')?.value.length}} / {{maxDescriptionLength}}
-    </mat-hint>
+    <mat-form-field appearance="outline">
+      <mat-label i18n="@@field.task.description">Description</mat-label>
+      <textarea matInput formControlName="description" rows="5" required></textarea>
 
-    <mat-error align="start">
-      <ng-container [ngTemplateOutlet]="checker" [ngTemplateOutletContext]="{errors:form.get('description')?.errors}">
-      </ng-container>
-    </mat-error>
-  </mat-form-field>
+      <mat-hint align="end">
+        {{form.get('description')?.value.length}} / {{maxDescriptionLength}}
+      </mat-hint>
 
-  <mat-form-field appearance="outline">
-    <mat-label i18n="@@field.task.deadline">Deadline</mat-label>
-    <input matInput formControlName="deadline" [min]="minAvailableDate" [matDatepicker]="picker" required>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+      <mat-error align="start">
+        <ng-container [ngTemplateOutlet]="checker" [ngTemplateOutletContext]="{errors:form.get('description')?.errors}">
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
 
-    <mat-error align="start">
-      <ng-container [ngTemplateOutlet]="checker" [ngTemplateOutletContext]="{errors:form.get('deadline')?.errors}">
-      </ng-container>
-    </mat-error>
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label i18n="@@field.task.deadline">Deadline</mat-label>
+      <input matInput formControlName="deadline" [min]="minAvailableDate" [matDatepicker]="picker" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+
+      <mat-error align="start">
+        <ng-container [ngTemplateOutlet]="checker" [ngTemplateOutletContext]="{errors:form.get('deadline')?.errors}">
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button *ngIf="editing; else  createTaskButton" mat-flat-button color="primary" type="submit"
+      i18n="@@action.update">Update</button>
+
+    <ng-template #createTaskButton>
+      <button mat-flat-button color="primary" type="submit" i18n="@@action.create">Create</button>
+    </ng-template>
+
+    <button mat-stroked-button mat-dialog-close type="button" i18n="@@action.cancel">Cancel</button>
+  </mat-dialog-actions>
 </form>
 
 <ng-template #checker let-errors="errors">

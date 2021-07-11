@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
+import { TaskData } from '../services/tasks.service';
 
 @Component({
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss']
+  styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent {
 
@@ -14,24 +16,35 @@ export class DialogComponent {
 
   public readonly minAvailableDate = moment().startOf('day');
 
-  public readonly form = this.builder.group({
-    id: null,
-    title: ['', [Validators.required, Validators.maxLength(this.maxTitleLength)]],
-    description: ['', [Validators.required, Validators.maxLength(this.maxDescriptionLength)]],
-    deadline: [moment().startOf('day').add(1, 'day'), [Validators.required, this.checkDate.bind(this)]],
-    closed: false,
-  });
+  public readonly form: FormGroup;
+
+  public readonly editing: boolean;
 
   constructor(
-    private builder: FormBuilder,
-  ) { }
+    builder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) data: TaskData,
+    private dialogRef: MatDialogRef<DialogComponent>,
+  ) {
+    this.editing = !!data;
+    data = data || {};
 
-  public submit(): void {
-
+    this.form = builder.group({
+      id: data.id || null,
+      title: [data.title || '', [Validators.required, Validators.maxLength(this.maxTitleLength)]],
+      description: [data.description || '', [Validators.required, Validators.maxLength(this.maxDescriptionLength)]],
+      deadline: [data.deadline || moment().startOf('day').add(1, 'day'), [Validators.required, this.checkDate]],
+      closed: !!data.closed,
+    })
   }
 
-  public checkDate(control: AbstractControl): ValidationErrors | null {
+  public checkDate = (control: AbstractControl): ValidationErrors | null => {
     return control.value?.isBefore(this.minAvailableDate) ? { future: true } : null;
+  }
+
+  public submit(): void {
+    if (this.form.valid) {
+      this.dialogRef.close(this.form.value);
+    }
   }
 
 }

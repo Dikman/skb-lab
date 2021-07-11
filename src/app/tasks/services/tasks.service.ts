@@ -1,4 +1,6 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
+import * as moment from 'moment';
+import { Moment } from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LOCAL_STORAGE } from 'src/app/shared/injection/local-storage/local-storage';
@@ -10,7 +12,7 @@ export interface TaskData {
   id: number;
   title: string;
   description: string;
-  deadline: Date;
+  deadline: Moment;
   closed: boolean;
 }
 
@@ -34,18 +36,19 @@ export class TasksService implements OnDestroy {
 
   public list$(): Observable<TaskData[]> {
     return this.change$.pipe(
-      map(list => list.reverse()),
+      map(list => [...list].reverse()),
     );
   }
 
   public get$(id: number): Observable<TaskData | null> {
     return this.change$.pipe(
-      map(list => list.find(item => item.id === id) || null)
+      map(list => list.find(item => item.id === id)),
+      map(item => item ? { ...item } : null)
     );
   }
 
   public append(task: TaskData): void {
-    const list = this.change$.getValue();
+    const list = [...this.change$.getValue()];
     const idx = list.findIndex(item => item.id === task.id);
 
     if (idx === -1) {
@@ -60,7 +63,7 @@ export class TasksService implements OnDestroy {
   }
 
   public delete(id: number): void {
-    const list = this.change$.getValue();
+    const list = [...this.change$.getValue()];
     const idx = list.findIndex(item => item.id === id);
 
     if (idx >= 0) {
@@ -72,7 +75,7 @@ export class TasksService implements OnDestroy {
   private getStoredTasks(raw: string | null = null): TaskData[] {
     try {
       const value = JSON.parse(raw || this.localStorage.getItem(STORAGE_NAME) || '');
-      return Array.isArray(value) ? value.map(item => ({ ...item, deadline: new Date(item.deadline) })) : [];
+      return Array.isArray(value) ? value.map(item => ({ ...item, deadline: moment(item.deadline) })) : [];
     } catch {
       return [];
     }

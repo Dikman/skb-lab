@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { TaskData, TasksService } from '../services/tasks.service';
 
 @Component({
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent {
 
-  public dateFormat = $localize`:@@formats.date:dd.MM.yy, hh:mm`;
-
   public list$ = this.tasksService.list$();
+
+  public selected: TaskData | undefined;
 
   constructor(
     private tasksService: TasksService,
@@ -23,15 +24,22 @@ export class ListComponent {
   }
 
   public addNewTask(): void {
+    this.editTask(null);
+  }
+
+  public editTask(task: TaskData | null): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       role: 'dialog',
       width: '640px',
-      // data?: D | null;
+      data: task,
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(`Dialog result: ${result}`);
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.tasksService.append(result);
+        this.selected = result;
+      }
+    });
   }
 
 }
