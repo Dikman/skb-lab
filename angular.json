@@ -16,6 +16,12 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ru-RU": "src/locale/i18n.ru-RU.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -64,6 +70,9 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "ru-RU": {
+              "localize": ["ru-RU"]
             }
           },
           "defaultConfiguration": "production"
@@ -76,6 +85,9 @@
             },
             "development": {
               "browserTarget": "task-tracking:build:development"
+            },
+            "ru-RU": {
+              "browserTarget": "task-tracking:build:ru-RU"
             }
           },
           "defaultConfiguration": "development"

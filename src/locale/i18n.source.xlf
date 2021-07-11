@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en-US">
+  <file id="ngi18n" original="ng.template">
+    <unit id="content.topbar.title">
+      <notes>
+        <note category="location">src/app/layout/root/root.component.html:19</note>
+      </notes>
+      <segment>
+        <source>Task tracking</source>
+      </segment>
+    </unit>
+    <unit id="content.unfound.title">
+      <notes>
+        <note category="location">src/app/layout/unfound/unfound.component.html:1</note>
+      </notes>
+      <segment>
+        <source>Page not found</source>
+      </segment>
+    </unit>
+    <unit id="content.unfound.message">
+      <notes>
+        <note category="location">src/app/layout/unfound/unfound.component.html:2,4</note>
+      </notes>
+      <segment>
+        <source>Oops, the page you are looking for does not exist. It might have removed, had its name changed, or is temporally unavailable. Try going back to the previous page or see <pc id="0" equivStart="START_LINK" equivEnd="CLOSE_LINK" type="link" dispStart="&lt;a routerLink=&quot;/&quot;&gt;" dispEnd="&lt;/a&gt;">the home page</pc> to choose a new direction.</source>
+      </segment>
+    </unit>
+    <unit id="title.task-view.edit-task">
+      <notes>
+        <note category="location">src/app/tasks/dialog/dialog.component.html:2</note>
+      </notes>
+      <segment>
+        <source>Edit the task</source>
+      </segment>
+    </unit>
+    <unit id="title.task-view.add-task">
+      <notes>
+        <note category="location">src/app/tasks/dialog/dialog.component.html:5</note>
+      </notes>
+      <segment>
+        <source>Add a new task</source>
+      </segment>
+    </unit>
+    <unit id="field.task.title">
+      <notes>
+        <note category="location">src/app/tasks/dialog/dialog.component.html:10</note>
+        <note category="location">src/app/tasks/view/view.component.html:28,29</note>
+      </notes>
+      <segment>
+        <source>Title</source>
+      </segment>
+    </unit>
+    <unit id="field.task.description">
+      <notes>
+        <note category="location">src/app/tasks/dialog/dialog.component.html:24</note>
+        <note category="location">src/app/tasks/view/view.component.html:33,34</note>
+      </notes>
+      <segment>
+        <source>Description</source>
+      </segment>
+    </unit>
+    <unit id="field.task.deadline">
+      <notes>
+        <note category="location">src/app/tasks/dialog/dialog.component.html:38</note>
+        <note category="location">src/app/tasks/view/view.component.html:38,39</note>
+      </notes>
+      <segment>
+        <source>Deadline</source>
+      </segment>
+    </unit>
+    <unit id="action.update">
+      <notes>
+        <note category="location">src/app/tasks/dialog/dialog.component.html:52</note>
+      </notes>
+      <segment>
+        <source>Update</source>
+      </segment>
+    </unit>
+    <unit id="action.create">
+      <notes>
+        <note category="location">src/app/tasks/dialog/dialog.component.html:55</note>
+      </notes>
+      <segment>
+        <source>Create</source>
+      </segment>
+    </unit>
+    <unit id="action.cancel">
+      <notes>
+        <note category="location">src/app/tasks/dialog/dialog.component.html:58</note>
+      </notes>
+      <segment>
+        <source>Cancel</source>
+      </segment>
+    </unit>
+    <unit id="title.tasks-list">
+      <notes>
+        <note category="location">src/app/tasks/list/list.component.html:2,4</note>
+      </notes>
+      <segment>
+        <source>Tasks list</source>
+      </segment>
+    </unit>
+    <unit id="content.tasks-list.empty">
+      <notes>
+        <note category="location">src/app/tasks/list/list.component.html:18,20</note>
+      </notes>
+      <segment>
+        <source> Any tasks are absent. Click here or click add button to add the first task. </source>
+      </segment>
+    </unit>
+    <unit id="label.new-task">
+      <notes>
+        <note category="location">src/app/tasks/list/list.component.html:26</note>
+      </notes>
+      <segment>
+        <source>Add a new task</source>
+      </segment>
+    </unit>
+    <unit id="action.close">
+      <notes>
+        <note category="location">src/app/tasks/view/view.component.html:4,5</note>
+        <note category="location">src/app/tasks/view/view.component.html:13,14</note>
+        <note category="location">src/app/tasks/view/view.component.html:22</note>
+      </notes>
+      <segment>
+        <source>Close</source>
+      </segment>
+    </unit>
+    <unit id="action.in-progress">
+      <notes>
+        <note category="location">src/app/tasks/view/view.component.html:8,9</note>
+        <note category="location">src/app/tasks/view/view.component.html:12,13</note>
+      </notes>
+      <segment>
+        <source>In progress</source>
+      </segment>
+    </unit>
+    <unit id="action.edit">
+      <notes>
+        <note category="location">src/app/tasks/view/view.component.html:18</note>
+      </notes>
+      <segment>
+        <source>Edit</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

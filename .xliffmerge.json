@@ -1,0 +1,19 @@
+{
+  "xliffmergeOptions": {
+    "srcDir": "src/locale",
+    "genDir": "src/locale",
+    "i18nFile": "i18n.source.xlf",
+    "i18nBaseFile": "i18n",
+    "i18nFormat": "xlf2",
+    "encoding": "UTF-8",
+    "defaultLanguage": "en-US",
+    "languages": ["ru-RU"],
+    "removeUnusedIds": true,
+    "useSourceAsTarget": true,
+    "beautifyOutput": true,
+    "preserveOrder": true,
+    "allowIdChange": false,
+    "verbose": false,
+    "quiet": false
+  }
+}

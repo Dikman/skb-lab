@@ -3,7 +3,20 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  locales: [
+    {
+      name: 'English',
+      image: 'assets/flags/american.svg',
+      code: 'en-US',
+    },
+    {
+      name: 'Русский',
+      image: 'assets/flags/russian.svg',
+      code: 'ru-RU',
+    }
+  ],
 };
 
 /*

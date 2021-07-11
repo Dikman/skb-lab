@@ -19,6 +19,23 @@
         <ng-container i18n="@@content.topbar.title">Task tracking</ng-container>
       </a>
     </h1>
+
+    <span class="flex-spacer"></span>
+
+    <button mat-icon-button class="forced-stroked-button" [matMenuTriggerFor]="languages"
+      aria-label="Language settings" i18n-aria-label="@@action.label.language-settings">
+      <mat-icon [svgIcon]="current.code"></mat-icon>
+    </button>
+
+    <mat-menu #languages="matMenu">
+      <ng-template matMenuContent>
+        <button *ngFor="let item of locales" mat-menu-item [disabled]="item.code === current.code"
+          (click)="onSelectLocale(item.code)">
+          <mat-icon [svgIcon]="item.code"></mat-icon>
+          <span>{{item.name}}</span>
+        </button>
+      </ng-template>
+    </mat-menu>
   </mat-toolbar>
 </header>
 
