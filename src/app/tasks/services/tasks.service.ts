@@ -16,9 +16,7 @@ export interface TaskData {
   closed: boolean;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TasksService implements OnDestroy {
 
   private change$ = new BehaviorSubject<TaskData[]>(this.getStoredTasks());

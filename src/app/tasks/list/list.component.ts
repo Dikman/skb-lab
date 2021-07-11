@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from '../services/dialog.service';
 import { TaskData, TasksService } from '../services/tasks.service';
 
 @Component({
@@ -16,7 +16,9 @@ export class ListComponent {
 
   constructor(
     private tasksService: TasksService,
-    private dialog: MatDialog,
+    private dialogService: DialogService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   public trackTask(idx: number, item: TaskData): number {
@@ -24,21 +26,10 @@ export class ListComponent {
   }
 
   public addNewTask(): void {
-    this.editTask(null);
-  }
-
-  public editTask(task: TaskData | null): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      role: 'dialog',
-      width: '640px',
-      data: task,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.tasksService.append(result);
-        this.selected = result;
-      }
+    this.dialogService.open().subscribe(result => {
+      this.tasksService.append(result);
+      this.selected = result;
+      this.router.navigate([result.id], { relativeTo: this.activatedRoute });
     });
   }
 

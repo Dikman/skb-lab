@@ -1,4 +1,21 @@
 <ng-container *ngIf="task$ | async as task">
+  <mat-toolbar>
+    <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>My App</span> -->
+
+    <span class="flex-spacer"></span>
+
+    <button mat-icon-button i18n="@@action.edit" aria-label="Edit" (click)="editTask()">
+      <mat-icon>edit</mat-icon>
+    </button>
+
+    <button mat-icon-button i18n="@@action.delete" aria-label="Delete">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-toolbar>
+
   <fieldset>
     <legend i18n="@@field.task.title">Title</legend>
     {{task?.title}}

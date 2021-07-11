@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
+import { DialogService } from '../services/dialog.service';
 import { TaskData, TasksService } from '../services/tasks.service';
 
 @Component({
@@ -18,12 +19,21 @@ export class ViewComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private tasksService: TasksService,
+    private dialogService: DialogService,
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.task$ = this.activatedRoute.params.pipe(
       switchMap(({ id }) => this.tasksService.get$(parseInt(id, 10)))
     );
+  }
+
+  public editTask(): void {
+    this.task$.pipe(first()).subscribe(task => {
+      this.dialogService.open(task).subscribe(result => {
+        this.tasksService.append(result);
+      });
+    });
   }
 
 }
