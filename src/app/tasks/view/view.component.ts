@@ -36,4 +36,10 @@ export class ViewComponent implements OnInit {
     });
   }
 
+  public switchStatus(closed: boolean): void {
+    this.task$.pipe(first()).subscribe(task => {
+      this.tasksService.append({ ...task!, closed });
+    });
+  }
+
 }

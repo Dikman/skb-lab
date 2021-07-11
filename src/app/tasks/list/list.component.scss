@@ -14,6 +14,11 @@
   flex-direction: column;
 }
 
+.mat-selection-list {
+  margin: 0;
+  overflow: auto;
+}
+
 .add-task-button {
   position: fixed;
   right: 8px;
@@ -22,4 +27,19 @@
 
 .body-wrapper {
   display: flex;
+}
+
+.task-closed {
+  color: silver;
+  opacity: 0.75;
+  position: relative;
+
+  &::before{
+    content: "";
+    border-top: 1px solid silver;
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    top: 50%;
+  }
 }

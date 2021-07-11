@@ -3,9 +3,10 @@
 
   <div class="body-wrapper flex-spacer">
     <mat-selection-list *ngIf="list$ | async as list" class="flex-spacer" [multiple]="false">
-      <mat-list-option *ngFor="let item of list; trackBy: trackTask" class="lock-selection" [value]="item"
-        [selected]="item.id === selected?.id" [routerLink]="[item.id]" (click)="selected = item">
-        {{item.title}}
+      <mat-list-option *ngFor="let item of list; trackBy: trackTask" class="lock-selection"
+        [class.task-closed]="item.closed" [value]="item" [selected]="item.id === selected?.id" [routerLink]="[item.id]"
+        (click)="selected = item">
+        <span class="ellipsis-text">{{item.title}}</span>
         <span class="flex-spacer"></span>
         {{item.deadline.toDate() | date:'shortDate'}}
       </mat-list-option>
