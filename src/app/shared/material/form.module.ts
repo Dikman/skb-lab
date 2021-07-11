@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -14,6 +15,7 @@ import { BasicModule } from './basic.module';
   exports: [
     BasicModule,
     ReactiveFormsModule,
+    DragDropModule,
     MatFormFieldModule,
     MatInputModule,
     MatListModule,

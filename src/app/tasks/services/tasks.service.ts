@@ -1,3 +1,4 @@
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import { Moment } from 'moment';
@@ -66,6 +67,17 @@ export class TasksService implements OnDestroy {
 
     if (idx >= 0) {
       list.splice(idx, 1);
+      this.setStoredTasks(list);
+    }
+  }
+
+  public exchange(targetId: number, placeId: number): void {
+    const list = [...this.change$.getValue()];
+    const targetIdx = list.findIndex(item => item.id === targetId);
+    const placeIdx = list.findIndex(item => item.id === placeId);
+
+    if (targetIdx !== -1 && placeIdx !== -1) {
+      moveItemInArray(list, placeIdx, targetIdx);
       this.setStoredTasks(list);
     }
   }

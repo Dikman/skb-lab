@@ -1,5 +1,7 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 import { DialogService } from '../services/dialog.service';
 import { TaskData, TasksService } from '../services/tasks.service';
 
@@ -30,6 +32,12 @@ export class ListComponent {
       this.tasksService.append(result);
       this.selected = result;
       this.router.navigate([result.id], { relativeTo: this.activatedRoute });
+    });
+  }
+
+  public onDropped(event: CdkDragDrop<unknown>) {
+    this.list$.pipe(first()).subscribe(list => {
+      this.tasksService.exchange(list[event.currentIndex].id, list[event.previousIndex].id);
     });
   }
 
