@@ -83,3 +83,12 @@
 .cdk-drop-list-dragging .action-wrapper:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+.task-burning {
+  background: #f9f9d9;
+}
+
+.task-expired {
+  background: #ffd5d5;
+  color: #6b0000;
+}

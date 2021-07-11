@@ -2,8 +2,8 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import { Moment } from 'moment';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
+import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 import { LOCAL_STORAGE } from 'src/app/shared/injection/local-storage/local-storage';
 import { WINDOW } from 'src/app/shared/injection/window/window';
 
@@ -14,13 +14,44 @@ export interface TaskData {
   title: string;
   description: string;
   deadline: Moment;
-  closed: boolean;
+  closed?: boolean;
+  status?: '' | 'burning' | 'expired';
 }
 
 @Injectable()
 export class TasksService implements OnDestroy {
 
   private change$ = new BehaviorSubject<TaskData[]>(this.getStoredTasks());
+
+  private timer$ = timer(
+    moment().add(1, 'day').startOf('day').toDate(),
+    moment().add(1, 'day').valueOf() - moment().valueOf()
+  ).pipe(
+    startWith(-1),
+  );
+
+  private assessed$ = this.timer$.pipe(
+    switchMap(() => this.change$),
+    map(list => {
+      const expired = moment().startOf('day');
+      const burning = moment().startOf('day').add(3, 'day');
+
+      return list.map<TaskData>(item => {
+        if (!item?.closed) {
+          if (item.deadline.isBefore(expired)) {
+            return { ...item, status: 'expired' };
+          }
+
+          if (item.deadline.isBefore(burning)) {
+            return { ...item, status: 'burning' };
+          }
+        }
+
+        return { ...item, status: '' };
+      });
+    }),
+    shareReplay(1),
+  );
 
   constructor(
     @Inject(WINDOW) private window: Window,
@@ -34,13 +65,13 @@ export class TasksService implements OnDestroy {
   }
 
   public list$(): Observable<TaskData[]> {
-    return this.change$.pipe(
+    return this.assessed$.pipe(
       map(list => [...list].reverse()),
     );
   }
 
   public get$(id: number): Observable<TaskData | null> {
-    return this.change$.pipe(
+    return this.assessed$.pipe(
       map(list => list.find(item => item.id === id)),
       map(item => item ? { ...item } : null)
     );
@@ -85,7 +116,7 @@ export class TasksService implements OnDestroy {
   private getStoredTasks(raw: string | null = null): TaskData[] {
     try {
       const value = JSON.parse(raw || this.localStorage.getItem(STORAGE_NAME) || '');
-      return Array.isArray(value) ? value.map(item => ({ ...item, deadline: moment(item.deadline) })) : [];
+      return Array.isArray(value) ? value.map(item => ({ ...item, deadline: moment(item.deadline).startOf('day') })) : [];
     } catch {
       return [];
     }

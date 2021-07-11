@@ -5,8 +5,9 @@
     <mat-selection-list cdkDropList *ngIf="list$ | async as list" class="flex-spacer" [multiple]="false"
       (cdkDropListDropped)="onDropped($event)">
       <mat-list-option cdkDrag *ngFor="let item of list; trackBy: trackTask" class="lock-selection"
-        [class.task-closed]="item.closed" [value]="item" [selected]="item.id === selected?.id" [routerLink]="[item.id]"
-        (click)="selected = item">
+        [class.task-closed]="item.closed" [class.task-burning]="item?.status ==='burning'"
+        [class.task-expired]="item?.status ==='expired'" [value]="item" [selected]="item.id === selected?.id"
+        [routerLink]="[item.id]" (click)="selected = item">
         <span class="ellipsis-text">{{item.title}}</span>
         <span class="flex-spacer"></span>
         <span class="deadline">{{item.deadline.toDate() | date:'shortDate'}}</span>

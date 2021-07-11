@@ -29,10 +29,10 @@ export class DialogComponent {
     data = data || {};
 
     this.form = builder.group({
-      id: data.id || null,
-      title: [data.title || '', [Validators.required, Validators.maxLength(this.maxTitleLength)]],
-      description: [data.description || '', [Validators.required, Validators.maxLength(this.maxDescriptionLength)]],
-      deadline: [data.deadline || moment().startOf('day').add(1, 'day'), [Validators.required, this.checkDate]],
+      id: data.id ?? null,
+      title: [data.title ?? '', [Validators.required, Validators.maxLength(this.maxTitleLength)]],
+      description: [data.description ?? '', [Validators.required, Validators.maxLength(this.maxDescriptionLength)]],
+      deadline: [data.deadline ?? moment().startOf('day').add(1, 'day'), [Validators.required, this.checkDate]],
       closed: !!data.closed,
     })
   }
