@@ -16,6 +16,8 @@ export class ListComponent {
 
   public selected: TaskData | undefined;
 
+  public combined: boolean = false;
+
   constructor(
     private tasksService: TasksService,
     private dialogService: DialogService,

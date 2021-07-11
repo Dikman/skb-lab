@@ -2,8 +2,8 @@
   <mat-card-title i18n="@@title.tasks-list">Tasks list</mat-card-title>
 
   <div class="body-wrapper flex-spacer">
-    <mat-selection-list cdkDropList *ngIf="list$ | async as list" class="flex-spacer" [multiple]="false"
-      (cdkDropListDropped)="onDropped($event)">
+    <mat-selection-list cdkDropList *ngIf="list$ | async as list" class="flex-spacer" [class.combined]="combined"
+      [multiple]="false" (cdkDropListDropped)="onDropped($event)">
       <mat-list-option cdkDrag *ngFor="let item of list; trackBy: trackTask" class="lock-selection"
         [class.task-closed]="item.closed" [class.task-burning]="item?.status ==='burning'"
         [class.task-expired]="item?.status ==='expired'" [value]="item" [selected]="item.id === selected?.id"
@@ -19,7 +19,7 @@
       </mat-list-option>
     </mat-selection-list>
 
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="combined = true" (deactivate)="combined = false"></router-outlet>
   </div>
 </mat-card>
 

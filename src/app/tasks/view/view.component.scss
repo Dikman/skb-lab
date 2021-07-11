@@ -1,8 +1,11 @@
 :host {
-  border-left: 1px solid silver;
-  margin-left: 16px;
-  padding-left: 16px;
   overflow: auto;
+
+  @media (min-width: 600px) {
+    border-left: 1px solid silver;
+    margin-left: 16px;
+    padding-left: 16px;
+  }
 }
 
 fieldset {
