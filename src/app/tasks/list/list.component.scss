@@ -9,8 +9,17 @@
   }
 }
 
+.mat-card {
+  display: flex;
+  flex-direction: column;
+}
+
 .add-task-button {
-  position: absolute;
+  position: fixed;
   right: 8px;
   bottom: 8px;
+}
+
+.body-wrapper {
+  display: flex;
 }

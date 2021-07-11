@@ -16,7 +16,7 @@ export class ListComponent {
 
   constructor(
     private tasksService: TasksService,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
   ) { }
 
   public trackTask(idx: number, item: TaskData): number {

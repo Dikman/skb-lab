@@ -1,0 +1,16 @@
+<ng-container *ngIf="task$ | async as task">
+  <fieldset>
+    <legend i18n="@@field.task.title">Title</legend>
+    {{task?.title}}
+  </fieldset>
+
+  <fieldset>
+    <legend i18n="@@field.task.description">Description</legend>
+    {{task?.description}}
+  </fieldset>
+
+  <fieldset>
+    <legend i18n="@@field.task.deadline">Deadline</legend>
+    {{task?.deadline?.toDate() | date:'shortDate'}}
+  </fieldset>
+</ng-container>

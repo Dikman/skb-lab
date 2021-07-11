@@ -1,0 +1,15 @@
+:host {
+  border-left: 1px solid silver;
+  margin-left: 16px;
+  padding-left: 16px;
+}
+
+fieldset {
+  border: 1px solid silver;
+  border-radius: 6px;
+  margin-top: 16px;
+
+  legend {
+    margin: 0 8px;
+  }
+}
