@@ -1,16 +1,16 @@
 <ng-container *ngIf="task$ | async as task">
   <mat-toolbar>
     <button mat-stroked-button [color]="task?.closed ? 'accent' : 'primary'" [matMenuTriggerFor]="menu">
-      <ng-container *ngIf="task?.closed; else statusInProgress" i18n="@@action.close">Close</ng-container>
+      <ng-container *ngIf="task?.closed; else statusInProgress" i18n="@@status.done">Done</ng-container>
     </button>
 
     <ng-template #statusInProgress>
-      <ng-container i18n="@@action.in-progress">In progress</ng-container>
+      <ng-container i18n="@@status.in-progress">In progress</ng-container>
     </ng-template>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item i18n="@@action.in-progress" (click)="switchStatus(false)">In progress</button>
-      <button mat-menu-item i18n="@@action.close" (click)="switchStatus(true)">Close</button>
+      <button mat-menu-item i18n="@@status.in-progress" (click)="switchStatus(false)">In progress</button>
+      <button mat-menu-item i18n="@@status.done" (click)="switchStatus(true)">Done</button>
     </mat-menu>
 
     <span class="flex-spacer"></span>

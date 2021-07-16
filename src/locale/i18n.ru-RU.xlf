@@ -10,6 +10,15 @@
         <target>Отслеживание задач</target>
       </segment>
     </unit>
+    <unit id="action.label.language-settings">
+      <notes>
+        <note category="location">src/app/layout/root/root.component.html:26</note>
+      </notes>
+      <segment state="initial">
+        <source>Language settings</source>
+        <target>Языковые настройки</target>
+      </segment>
+    </unit>
     <unit id="content.unfound.title">
       <notes>
         <note category="location">src/app/layout/unfound/unfound.component.html:1</note>
@@ -132,8 +141,6 @@
     </unit>
     <unit id="action.close">
       <notes>
-        <note category="location">src/app/tasks/view/view.component.html:4,5</note>
-        <note category="location">src/app/tasks/view/view.component.html:13,14</note>
         <note category="location">src/app/tasks/view/view.component.html:22</note>
       </notes>
       <segment state="initial">
@@ -141,7 +148,7 @@
         <target>Закрыть</target>
       </segment>
     </unit>
-    <unit id="action.in-progress">
+    <unit id="status.in-progress">
       <notes>
         <note category="location">src/app/tasks/view/view.component.html:8,9</note>
         <note category="location">src/app/tasks/view/view.component.html:12,13</note>
@@ -149,6 +156,16 @@
       <segment state="initial">
         <source>In progress</source>
         <target>Выполняется</target>
+      </segment>
+    </unit>
+    <unit id="status.done">
+      <notes>
+        <note category="location">src/app/tasks/view/view.component.html:4</note>
+        <note category="location">src/app/tasks/view/view.component.html:13</note>
+      </notes>
+      <segment state="initial">
+        <source>Done</source>
+        <target>Завершена</target>
       </segment>
     </unit>
     <unit id="action.edit">
